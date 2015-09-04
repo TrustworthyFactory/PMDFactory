@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         name="pmdcodesize"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+   <description>PMD Plugin preferences rule set</description>
+   <rule ref="rulesets/java/codesize.xml/NPathComplexity"/>
+   <rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength"/>
+   <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList"/>
+   <rule ref="rulesets/java/codesize.xml/ExcessiveClassLength"/>
+   <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity"/>
+   <rule ref="rulesets/java/codesize.xml/ExcessivePublicCount"/>
+   <rule ref="rulesets/java/codesize.xml/TooManyFields"/>
+   <rule ref="rulesets/java/codesize.xml/NcssMethodCount"/>
+   <rule ref="rulesets/java/codesize.xml/NcssTypeCount"/>
+   <rule ref="rulesets/java/codesize.xml/NcssConstructorCount"/>
+   <rule ref="rulesets/java/codesize.xml/TooManyMethods"/>
+</ruleset>

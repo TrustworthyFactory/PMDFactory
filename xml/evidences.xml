@@ -1,0 +1,16 @@
+<OptetPlugin>
+    <categories name="static">
+<!--         <category name="Security">
+            <evidence name="SecurityMetric"/>
+        </category>
+        <category name="SoftwareComplexity">
+            <evidence name="SoftwareComplexityMetric"/>
+        </category> -->
+        <category name="Change Cycle/Stability">
+            <evidence name="Compliance with best programing practices"/>
+        </category>
+		<category name="Flexibility/Robustness">
+			<evidence name="interceptet errors" />
+		</category>
+        </categories>
+</OptetPlugin>
