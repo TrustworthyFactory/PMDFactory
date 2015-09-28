@@ -88,12 +88,12 @@ public class Startup implements IStartup{
 	private void registerEventHandler(BundleContext ctx) {
 		EventHandler handler = new OptetEventHandler();
 
-		System.out.println("start checkstyle comm");
+		System.out.println("start pmd comm");
 
 		Dictionary<String,String> properties = new Hashtable<String, String>();
 		properties.put(EventConstants.EVENT_TOPIC, "viewcommunication/*");
 		ctx.registerService(EventHandler.class, handler, properties);
-		System.out.println("start checkstyle comm");
+		System.out.println("start pmd comm");
 	}
 
 

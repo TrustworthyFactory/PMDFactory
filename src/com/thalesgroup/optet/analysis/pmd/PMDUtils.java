@@ -32,6 +32,7 @@ import net.sourceforge.pmd.util.datasource.FileDataSource;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ISelection;
 import org.osgi.framework.Bundle;
@@ -43,9 +44,11 @@ import com.thalesgroup.optet.twmanagement.Metric;
 import com.thalesgroup.optet.twmanagement.impl.OrchestrationImpl;
 
 
+
+
   import net.sourceforge.pmd.renderers.AbstractRenderer;
-  import net.sourceforge.pmd.renderers.Renderer;
-  import net.sourceforge.pmd.Report.ProcessingError;
+import net.sourceforge.pmd.renderers.Renderer;
+import net.sourceforge.pmd.Report.ProcessingError;
 
   /**
  * PMDUtils pmd wrapper
@@ -69,6 +72,23 @@ public class PMDUtils  extends AuditToolUtil{
 		super(iProject, files);
 
 	}
+
+	public static File resolveFile(String path,Bundle bundle) throws IOException {
+		  File file=null;
+		  if (bundle != null) {
+		    URL url=FileLocator.find(bundle,new Path(path),Collections.emptyMap());
+		    if (url != null) {
+		      URL fileUrl=FileLocator.toFileURL(url);
+		      try {
+		        file=new File(fileUrl.toURI());
+		      }
+		 catch (      URISyntaxException e) {
+		        e.printStackTrace();
+		      }
+		    }
+		  }
+		  return file;
+		}
 
 
 	/**
@@ -154,6 +174,14 @@ public class PMDUtils  extends AuditToolUtil{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				if (file==null)
+					try {
+						file= PMDUtils.resolveFile("resources/Exception.xml", bundle).toString();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				ruleSetsPath = file;
 				OptetDataModel.getInstance().configureRulesMetric(metric, 12);
 
@@ -168,6 +196,13 @@ public class PMDUtils  extends AuditToolUtil{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				if (file==null)
+					try {
+						file= PMDUtils.resolveFile("resources/CodingStyle.xml", bundle).toString();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				ruleSetsPath = file;
 				OptetDataModel.getInstance().configureRulesMetric(metric, 36);
 
@@ -213,6 +248,13 @@ public class PMDUtils  extends AuditToolUtil{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				if (file==null)
+					try {
+						file= PMDUtils.resolveFile("resources/AndroidException.xml", bundle).toString();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				ruleSetsPath = file;
 				OptetDataModel.getInstance().configureRulesMetric(metric, 12);
 
@@ -227,6 +269,13 @@ public class PMDUtils  extends AuditToolUtil{
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				if (file==null)
+					try {
+						file= PMDUtils.resolveFile("resources/AndroidCodingStyle.xml", bundle).toString();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				ruleSetsPath = file;
 				OptetDataModel.getInstance().configureRulesMetric(metric, 37);
 
@@ -240,11 +289,11 @@ public class PMDUtils  extends AuditToolUtil{
 		pmdConfiguration.getClassLoader();
 		Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 
-		URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{
-				bundle.getEntry("/rulesets/security.xml"),
-				bundle.getEntry("/rulesets/complexity.xml"),
-				bundle.getEntry("/rulesets/Reliability.xml"),
-				bundle.getEntry("/rulesets/Maintainability.xml")},pmdConfiguration.getClassLoader()); 
+			URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{
+					bundle.getEntry("resources/Exception.xml"),
+					bundle.getEntry("resources/CodingStyle.xml"),
+					bundle.getEntry("resources/AndroidException.xml"),
+					bundle.getEntry("resources/AndroidCodingStyle.xml")},pmdConfiguration.getClassLoader()); 
 
 		pmdConfiguration.setClassLoader(urlClassLoader);
 		pmdConfiguration.setRuleSets(ruleSetsPath);
